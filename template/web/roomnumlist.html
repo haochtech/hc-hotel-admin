@@ -1,0 +1,50 @@
+<style type="text/css">
+    .table{ margin-bottom: 0px; border:1px solid #eee;border-top:0px; }
+    .table td{ text-align: center; }
+    .room{background-color: #f5f5f5;}
+</style>
+<table class="table table-hover room" border="1" style="border:1px solid #999;">
+  <thead class="navbar-inner">
+    <tr>
+      <td  style="width: 12.5%">房型/日期</td>
+      <td  onclick='window.prePage()' style="width: 2.5%"><i class=' fa fa-chevron-left'></i></td>
+      {loop $date_array $row}
+      <td style="width: 8.2%">{$row['month']}-{$row['day']}</td>
+      {/loop}
+      <td  onclick='window.nextPage()' style="width: 2.5%"><i class=' fa fa-chevron-right'></i></td>
+    </tr>
+  </thead>
+  <tbody>
+    </tbody>
+  
+</table>
+  {loop $list $item}
+  <table class="table table-hover" border="1" >
+    <tr>
+    
+      <td style="width: 12.5%;background-color: #f4f6f9;">{$item['name']}</td>
+   
+    
+  
+        <td style="width: 2.5%">  </td>
+        {loop $item['pricearr'] $item1}
+        <td style="width: 8.2%">
+            <span class="price_span">{$item1['nums']}</span>
+            <span class="price_editspan hide">
+                <input type="text" pid="{$item1['pid']}" dateday="{$item1['dateday']}" rid="{$item1['rid']}" class="price_input form-control" value="{$item1['nums']}" />
+            </span>
+        </td>
+        {/loop}
+        <td style="width: 2.5%%"></td>
+     
+      
+     
+
+    
+    </tr>
+    
+  </table>
+  {/loop}
+
+<input type='hidden' id='page' value="{$page}" />
+<input type='hidden' id='totalpage' value="{$totalpage}" />

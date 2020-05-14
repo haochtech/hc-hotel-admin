@@ -1,0 +1,655 @@
+{template 'public/header'}
+{template 'public/comhead'}
+<style type="text/css">
+    .panel-default>.panel-heading{font-weight: bold;}
+    .info{padding: 30px;}
+    .progress{height: 5px;}
+    .infoul>li{padding: 0px;position: relative;}
+    .infoul>li>div:nth-child(1){margin-bottom: 15px;margin-left: -15px;}
+    .info_gou{width: 20px;height: 20px;color: white;border-radius: 50%;text-align: center;line-height: 20px;position: absolute;top: 27px;left: 0px;}
+    .info_grey{background-color: #e6e6e6;}
+    .info_green{background-color: #5bc0de;}
+    .progress-bar-yg{background-color: #5bc0de;}
+    .info_left{border-right: 1px solid #ccc;}
+    .info_left_title{font-size: 14px;font-weight: bold;}
+    .info_left_content>p>span:nth-child(1),.info_left_content2>p>span:nth-child(1){color: #999999;margin-right: 10px;}
+    .info_left_content{border-bottom: 1px dashed #ccc;padding-left: 25px;padding-top: 15px;}
+    .info_left_content2{padding-left: 100px;padding-top: 15px;padding-bottom: 5px;}
+    .info_right_top{border-bottom: 1px dashed #ccc;height: 286px;}
+    .info_right_type{font-size: 14px;font-weight: bold;margin-left: 15px;}
+    .info_right_type>span{font-size: 27px;color: #f0ad4e;}
+    .gantan{color: #0077DD;border: 1px solid #0077DD;width: 30px;height: 30px;border-radius: 50%;text-align: center;line-height: 30px;font-size: 22px;font-weight: bold;}
+    .info1{height: 32px;margin-top: 15px;}
+    .info1>div{float: left;}
+    .font1{color: red;font-size: 28px;font-weight: bold;}
+    .beizhu{margin: 10px 0px;}
+    .content1{padding-left: 60px;}
+    .content2{margin-top: 20px;}
+    .content1>div{float: left;}
+    .content1>div:nth-child(1){text-align: right;color: #999;margin-right: 10px;}
+    .content_inp{width: 122px;height: 32px;border:1px solid #ccc;padding: 0px 10px;}
+    .info_right_bot{padding: 10px 0px;}
+    .content_font{text-align: right;color: #999;} 
+    .content_color{color: #999;}
+    .conten_font2{font-size: 20px;font-weight: bold;}
+    .conten_font3{font-size: 18px;margin-top: 30px;font-weight: bold;margin-left: -40px;}
+    .btn-yg{background-color: red;color: white;font-weight: bold;}
+    .btn-yg:hover{background-color: red;color: white;}
+    .btn{font-weight: bold;} 
+    .martop{margin-top: -15px;}
+    .yajin{margin-bottom: 10px;line-height: 45px;margin-left: 50px;font-weight: bold;font-size: 18px;}
+    .yajininp{border:1px solid #eee;width: 155px;height: 34px;margin-top:1px;
+        padding-left: 10px;
+    }
+    .yjmoney{display: inline-block;margin-left: -3px;margin-top: -2px;
+        background: #eee;width: 38px;height: 34px;text-align: center;line-height: 34px;}
+        .yajinbox{position: absolute;left: 46%;top: 0px;}   
+        .return{display: inline-block;margin-top: 25px;}
+    </style>
+    <link rel="stylesheet" type="text/css" href="../addons/zh_jdgjb/template/public/ygcss.css">
+    <ul class="nav nav-tabs">
+        <span class="ygxian"></span>
+        <div class="ygdangq">当前位置:</div>    
+        <li ><a href="{php echo $this->createWebUrl('order')}">订单管理</a></li>
+        <li class="active"> <a href="{php echo $this->createWebUrl('orderinfo')}">订单详情</a></li>
+    </ul>
+    <div class="main">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                订单号：{$list['order_no']}
+            </div>
+            <div class="panel-body" style="padding: 0px 15px;">
+                <div class="row info">
+                    {if $list['status']==1}
+                    <!-- 一种状态开始 -->
+                    <ul class="col-md-9 col-md-push-2 infoul">
+                        <li class="col-md-5">
+                            <div style="color: #5bc0de;">用户订房</div>
+                            <div class="progress">
+                                <div class="progress-bar progress-bar-yg" role="progressbar" aria-valuenow="60" 
+                                aria-valuemin="0" aria-valuemax="100" style="width: 50%;">
+                            </div>
+                        </div>
+                        <div class="info_gou info_green">
+                            <span class="fa fa-check"></span>
+                        </div>
+                    </li>
+                    <li class="col-md-5">
+                        <div style="color: #999;">已确认</div>
+                        <div class="progress">
+                            <div class="progress-bar progress-bar-yg" role="progressbar" aria-valuenow="60" 
+                            aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+                        </div>
+                    </div>
+                    <div class="info_gou info_grey">
+                        <span class="fa fa-check"></span>
+                    </div>
+                </li>
+                <li class="col-md-2">
+                    <div style="color: #999;">交易完成</div>                        
+                    <div class="info_gou info_grey">
+                        <span class="fa fa-check"></span>
+                    </div>
+                </li>
+            </ul>
+            <!-- 一种状态结束 -->
+            <!-- 二种状态开始 -->
+            {elseif $list['status']==2}
+            <ul class="col-md-9 col-md-push-2 infoul">
+                <li class="col-md-5">
+                    <div style="color: #5bc0de;">用户订房</div>
+                    <div class="progress">
+                        <div class="progress-bar progress-bar-yg" role="progressbar" aria-valuenow="60" 
+                        aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+                    </div>
+                </div>
+                <div class="info_gou info_green">
+                    <span class="fa fa-check"></span>
+                </div>
+            </li>
+            <li class="col-md-5">
+                <div style="color: #5bc0de;">已确认</div>
+                <div class="progress">
+                    <div class="progress-bar progress-bar-yg" role="progressbar" aria-valuenow="60" 
+                    aria-valuemin="0" aria-valuemax="100" style="width: 50%;">
+                </div>
+            </div>
+            <div class="info_gou info_green">
+                <span class="fa fa-check"></span>
+            </div>
+        </li>
+        <li class="col-md-2">
+            <div style="color: #999;">交易完成</div>                        
+            <div class="info_gou info_grey">
+                <span class="fa fa-check"></span>
+            </div>
+        </li>
+    </ul>
+
+    <!-- 二种状态结束 -->
+    <!-- 三种状态结束 -->
+    {elseif $list['status']==4}
+    <ul class="col-md-9 col-md-push-2 infoul">
+        <li class="col-md-5">
+            <div style="color: #5bc0de;">用户订房</div>
+            <div class="progress">
+                <div class="progress-bar progress-bar-yg" role="progressbar" aria-valuenow="60" 
+                aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+            </div>
+        </div>
+        <div class="info_gou info_green">
+            <span class="fa fa-check"></span>
+        </div>
+    </li>
+    <li class="col-md-5">
+        <div style="color: #5bc0de;">已确认</div>
+        <div class="progress">
+            <div class="progress-bar progress-bar-yg" role="progressbar" aria-valuenow="60" 
+            aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+        </div>
+    </div>
+    <div class="info_gou info_green">
+        <span class="fa fa-check"></span>
+    </div>
+</li>
+<li class="col-md-2">
+    <div style="color: #5bc0de;">交易完成</div>                        
+    <div class="info_gou info_green">
+        <span class="fa fa-check"></span>
+    </div>
+</li>
+</ul>
+<!-- 三种状态结束 -->
+
+{elseif $list['status']==3}
+<!-- 四种状态结束 -->
+<ul class="col-md-9 col-md-push-2 infoul">
+    <li class="col-md-5">
+        <div style="color: #5bc0de;">用户订房</div>
+        <div class="progress">
+            <div class="progress-bar progress-bar-yg" role="progressbar" aria-valuenow="60" 
+            aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+        </div>
+    </div>
+    <div class="info_gou info_green">
+        <span class="fa fa-check"></span>
+    </div>
+</li>
+<li class="col-md-5">
+    <div style="color: #5bc0de;">已确认</div>
+    <div class="progress">
+        <div class="progress-bar progress-bar-yg" role="progressbar" aria-valuenow="60" 
+        aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+    </div>
+</div>
+<div class="info_gou info_green">
+    <span class="fa fa-check"></span>
+</div>
+</li>
+<li class="col-md-2">
+    <div style="color: #5bc0de;">已取消</div>                        
+    <div class="info_gou info_green">
+        <span class="fa fa-check"></span>
+    </div>
+</li>
+</ul>
+<!-- 四种状态结束 -->
+<!-- 五种状态结束 -->
+{elseif $list['status']==5}
+<ul class="col-md-10 col-md-push-2 infoul">
+    <li class="col-md-3">
+        <div style="color: #5bc0de;">用户订房</div>
+        <div class="progress">
+            <div class="progress-bar progress-bar-yg" role="progressbar" aria-valuenow="60" 
+            aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+        </div>
+    </div>
+    <div class="info_gou info_green">
+        <span class="fa fa-check"></span>
+    </div>
+</li>
+<li class="col-md-3">
+    <div style="color: #5bc0de;">已确认</div>
+    <div class="progress">
+        <div class="progress-bar progress-bar-yg" role="progressbar" aria-valuenow="60" 
+        aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+    </div>
+</div>
+<div class="info_gou info_green">
+    <span class="fa fa-check"></span>
+</div>
+</li>
+<li class="col-md-2">
+    <div style="color: #5bc0de;">已入住</div>                        
+    <div class="info_gou info_green">
+        <span class="fa fa-check"></span>
+    </div>
+</li>
+</ul>
+<!-- 五种状态结束 -->
+<!-- 五种状态结束 -->
+{elseif $list['status']==6}
+<ul class="col-md-10 col-md-push-2 infoul">
+    <li class="col-md-3">
+        <div style="color: #5bc0de;">用户订房</div>
+        <div class="progress">
+            <div class="progress-bar progress-bar-yg" role="progressbar" aria-valuenow="60" 
+            aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+        </div>
+    </div>
+    <div class="info_gou info_green">
+        <span class="fa fa-check"></span>
+    </div>
+</li>
+<li class="col-md-3">
+    <div style="color: #5bc0de;">已确认</div>
+    <div class="progress">
+        <div class="progress-bar progress-bar-yg" role="progressbar" aria-valuenow="60" 
+        aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+    </div>
+</div>
+<div class="info_gou info_green">
+    <span class="fa fa-check"></span>
+</div>
+</li>
+
+<li class="col-md-3">
+    <div style="color: #5bc0de;">待退款</div>
+    <div class="progress">
+        <div class="progress-bar progress-bar-yg" role="progressbar" aria-valuenow="60" 
+        aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+    </div>
+</div>
+<div class="info_gou info_green">
+    <span class="fa fa-check"></span>
+</div>
+</li>
+</ul>
+{elseif $list['status']==7}
+<ul class="col-md-10 col-md-push-2 infoul">
+    <li class="col-md-3">
+        <div style="color: #5bc0de;">用户订房</div>
+        <div class="progress">
+            <div class="progress-bar progress-bar-yg" role="progressbar" aria-valuenow="60" 
+            aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+        </div>
+    </div>
+    <div class="info_gou info_green">
+        <span class="fa fa-check"></span>
+    </div>
+</li>
+<li class="col-md-3">
+    <div style="color: #5bc0de;">已确认</div>
+    <div class="progress">
+        <div class="progress-bar progress-bar-yg" role="progressbar" aria-valuenow="60" 
+        aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+    </div>
+</div>
+<div class="info_gou info_green">
+    <span class="fa fa-check"></span>
+</div>
+</li>
+<li class="col-md-3">
+    <div style="color: #5bc0de;">待退款</div>
+    <div class="progress">
+        <div class="progress-bar progress-bar-yg" role="progressbar" aria-valuenow="60" 
+        aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+    </div>
+</div>
+<div class="info_gou info_green">
+    <span class="fa fa-check"></span>
+</div>
+</li>
+<li class="col-md-2">
+    <div style="color: #5bc0de;">已退款</div>                        
+    <div class="info_gou info_green">
+        <span class="fa fa-check"></span>
+    </div>
+</li>
+</ul>
+<!-- 五种状态结束 -->
+<!-- 六种状态结束 -->
+{elseif $list['status']==8}
+<ul class="col-md-10 col-md-push-2 infoul">
+    <li class="col-md-3">
+        <div style="color: #5bc0de;">用户订房</div>
+        <div class="progress">
+            <div class="progress-bar progress-bar-yg" role="progressbar" aria-valuenow="60" 
+            aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+        </div>
+    </div>
+    <div class="info_gou info_green">
+        <span class="fa fa-check"></span>
+    </div>
+</li>
+<li class="col-md-3">
+    <div style="color: #5bc0de;">已确认</div>
+    <div class="progress">
+        <div class="progress-bar progress-bar-yg" role="progressbar" aria-valuenow="60" 
+        aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+    </div>
+</div>
+<div class="info_gou info_green">
+    <span class="fa fa-check"></span>
+</div>
+</li>
+<li class="col-md-3">
+    <div style="color: #5bc0de;">待退款</div>
+    <div class="progress">
+        <div class="progress-bar progress-bar-yg" role="progressbar" aria-valuenow="60" 
+        aria-valuemin="0" aria-valuemax="100" style="width: 100%;">
+    </div>
+</div>
+<div class="info_gou info_green">
+    <span class="fa fa-check"></span>
+</div>
+</li>
+<li class="col-md-2">
+    <div style="color: #5bc0de;">退款已拒绝</div>                        
+    <div class="info_gou info_green">
+        <span class="fa fa-check"></span>
+    </div>
+</li>
+</ul>
+<!-- 六种状态结束 -->
+{/if}
+</div>
+</div>
+</div>
+<div class="panel panel-default">        
+    <div class="panel-body" style="padding: 15px 30px;">
+        <div class="row">
+            <div class="col-md-6 info_left">
+                <div class="info_left_title">订单信息</div>
+                <div class="info_left_content">
+                    <p><span>订单编号：</span>{$list['order_no']}</p>
+                    {if $list['type']==1}
+                    <p><span>支付流水：</span>{$list['out_trade_no']}</p>
+                    {/if}
+                       <!--  <p>
+                           <span>订单类型：</span>
+                           <span class="font1">预订</span>
+                       </p> -->
+                       <p><span>付款类型：</span>
+                        <span class="conten_font2">{if $list['type']==1}微信支付</span>
+                        {elseif $list['type']==2}
+                        <span class="conten_font2">余额支付</span>
+                        {else}
+                        <span class="conten_font2">到店支付</span>
+                        {/if}</p>
+                    </div>
+                    <div class="info_left_content">
+                        <p><span>下单时间：</span>{php echo date('Y-m-d H:i:s',$list['time'])}</p>
+                        <p><span>用户姓名：</span>{$list['name']}</p>
+                        <p><span>用户电话：</span>{$list['tel']}</p>
+                        <p><span>身份证号：</span>{$list['code']}</p>
+                        <p><span>房间类型：</span>{$list['room_type']}</p>
+                        <p><span>预订天数：</span>{$list['days']}</p>
+                        {if $list['classify']==1}
+                        <p><span>预订时间：</span>{php echo substr($list['arrival_time'],0,10)}~{php echo substr($list['departure_time'],0,10)}</p>
+                        {else}
+                        <p><span>预订时间：</span>{$list['arrival_time']}~{$list['departure_time']}</p>
+                        {/if}
+                    </div>                    
+                  <!--   <div class="info_left_content2">
+                      <p><span>买家留言：</span>这房间还不错还不错的哦哦哦哦哦哦哦哦哦哦哦哦哦哦哦哦哦哦哦哦哦哦哦哦哦哦哦哦</p>
+                  </div> -->
+              </div>
+              <div class="col-md-6 info_right">
+                <div class="info_left_title">付款信息</div>
+                <div class="info_right_top">
+                    <div class="col-md-12 info1">
+                        <div class="gantan"><span class="fa fa-exclamation"></span></div>
+                        <div class="info_right_type">订房状态：{if $list['status']==1}<span>待支付</span>
+                           {elseif $list['status']==2}<span>已付款</span>
+                           {elseif $list['status']==3}<span>已取消</span>
+                           {elseif $list['status']==4}<span>已完成</span>
+                           {elseif $list['status']==5}<span>已入住</span>
+                           {elseif $list['status']==6}<span>待退款</span>
+                           {elseif $list['status']==7}<span>已退款</span>
+                           {elseif $list['status']==8}<span>拒绝退款</span>
+                           {elseif $list['status']==9}<span>拒绝入住</span>
+                           {elseif $list['status']==10}<span>确认订单</span>
+                           {elseif $list['status']==11}<span>拒绝订单</span>
+      <!--                      {elseif $list['status']==12}<span>已评价</span> -->
+                           
+                           {/if}
+                       </div>
+                       <div class="yajin">
+                        <span>付款金额：</span>
+                        <span class="font1 yjspan">{$list['total_cost']}</span>
+                    </div>
+                </div>
+
+                <div class="col-md-12 beizhu">【备注】</div> 
+                <div class="content1 content2 beizhu col-md-12">
+                    <p>
+                        <span>房价：</span>
+                        <span>{$list['price']}</span>
+                        
+                    </p>
+                    {if $list['status']==5&&$list['type']==1}
+                    <p class="content_color" style="position: relative;">
+                        
+                        <div class="yajinbox">
+                            <p class="content_color">
+                                <span>已退押金：</span>
+                                <span>{$list['ytyj_cost']}</span>
+                            </p>
+                            {if $list['ytyj_cost']==0}
+                            <input type="number" name="" placeholder="请输入退款押金金额" class="yajininp" >
+                            <span class="yjmoney">元</span>
+                            <button class="btn btn-sm btn-danger" data-toggle="modal" data-target="#myModal{$list['id']}">确定</button>
+                             {/if}
+                        </div>
+                    </p>
+                    {/if}
+                    <p class="content_color">
+                        <span>押金：</span>
+                        <span>{$list['yj_cost']}</span>
+                    </p>
+                    <p class="content_color">
+                        <span>会员折扣：</span>
+                        <span>{$list['yyzk_cost']}</span>
+                    </p>
+                    <p class="content_color">
+                        <span>优惠券折扣：</span>
+                        <span>{$list['yhq_cost']}</span>
+                    </p>
+                    <p class="content_color">
+                        <span>积分红包折扣：</span>
+                        <span>{$list['hb_cost']}</span>
+                    </p>
+
+                    
+                    <p class="content_color">
+                        <span>已退押金：</span>
+                        <span>{$list['ytyj_cost']}</span>
+                    </p>
+                    
+                          <!--   <p class="conten_font3">
+                                <span>实付金额：</span>
+                                <span class="font1">{$newcost}</span>
+                            </p> -->
+                            
+                        </div> 
+                        <!-- <div class="content1 col-md-12">
+                            <div>&nbsp;</div>
+                            <div>（货价0.00+配送费4.00+打包费2.00）</div>
+                        </div> -->
+                        
+                        <!-- <div class="content1 col-md-12" style="margin: 8px 0px;">
+                            <div style="line-height: 30px;">改价：</div>
+                            <div>
+                             <form action="" method="post" enctype="multipart/form-data">
+                                <input class="content_inp" type="text" name="newcost">
+                               <input type="submit" name="submit2" class="btn btn-info" value="确定">
+                                      <input type="hidden" name="token" value="{$_W['token']}"/>
+                                      <input type="hidden" name="id" value="{$list['id']}"/>
+                                       </form>
+                                         
+                            </div>
+                        </div> -->
+                        <!-- <div class="content1 col-md-12">
+                            <div>预订时间：</div>
+                            <div></div>
+                        </div> -->
+                        <!-- 如果已完成的状态，显示赠送积分 -->
+                      <!--   <div class="content1 martop col-md-12">
+                            <div>赠送积分：</div>
+                            <div>{$score['score']}</div>
+                        </div>
+                    </div> -->
+                   <!--  <div class="info_right_bot">
+                       <div class="col-md-12">
+                           <div class="col-md-2 content_font">买家备注：</div>
+                           <div class="col-md-9" style="padding: 0px;">房间很不错啊哦哦哦哦哦哦哦哦哦哦</div>
+                       </div>-->
+                   </div> 
+               </div>
+           </div>
+       </div>
+   </div>
+   <div class="form-group">
+
+    <div class="col-sm-offset-2 col-sm-10">
+        {if $list['status']==2 && $sys['is_order']==1 or $list['type']==3&&$list['status']==1&& $sys['is_order']==1}
+        <a class="btn btn-info"  style="vertical-align: baseline" href="{php echo $this->createWebUrl('order',array('order_id'=>$list['id'],'op'=>'query'));}"> 确认订单</a>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a class="btn btn-danger"  style="vertical-align: baseline" href="{php echo $this->createWebUrl('order',array('order_id'=>$list['id'],'op'=>'jjorder'));}"> 拒绝订单</a>
+        {/if}
+        
+        {if $list['status']==10  or $list['status']==2&& $sys['is_order']==2 or $list['type']==3&&$list['status']==1&& $sys['is_order']==2}
+        <a class="btn btn-info"  style="vertical-align: baseline" href="{php echo $this->createWebUrl('order',array('id'=>$list['id'],'op'=>'rz'));}"> 确认入住</a>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a class="btn btn-danger"  style="vertical-align: baseline" href="{php echo $this->createWebUrl('order',array('order_id'=>$list['id'],'op'=>'jjrz'));}"> 拒绝入住</a>
+        {/if}
+
+        
+        {if $list['status']==6}
+        <a  class="btn btn-success" style="vertical-align: baseline" href="{php echo $this->createWebUrl('order',array('order_id'=>$list['id'],'op'=>'refund'));}">确认退款</a>
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a class="btn btn-danger" href="{php echo $this->createWebUrl('order',array('order_id'=>$list['id'],'op'=>'reject'));}">拒绝退款</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        
+        {/if} 
+          {if $list['status']==5}
+        <a  class="btn btn-success" style="vertical-align: baseline" href="{php echo $this->createWebUrl('order',array('order_id'=>$list['id'],'op'=>'complete'));}">确认订单完成</a>
+    
+        
+        {/if} 
+
+        &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+        <a class="btn btn-warning return" style="vertical-align: baseline" href="{php echo $this->createWebUrl('order');}"> 返回列表</a> 
+    </div>
+</div>
+
+    <!-- <div class="col-md-12">
+        <input type="submit" class="btn btn-xm btn-danger" name="" value="确认付款">
+        <input type="submit" class="btn btn-xm btn-success" name="" value="完成订单">
+        <input type="submit" class="btn btn-xm btn-default" name="" value="关闭订单">
+    </div> -->
+    
+</div>
+<div class="modal fade fade1" id="myModal{$list['id']}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel" style="font-size: 20px;">提示</h4>
+            </div>
+            <div class="modal-body" style="font-size: 20px">
+                确定退款么？
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                <button class="btn btn-info confirmbtn" data-dismiss="modal" data-toggle="modal" data-target="#myModal2{$list['id']}">确定</button>
+            </div>
+            <input type="hidden" class="hiddenid" value="{$list['id']}" name="">
+        </div>
+    </div>
+</div>
+
+<div class="modal fade fade2" id="myModal2{$list['id']}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                <h4 class="modal-title" id="myModalLabel" style="font-size: 20px;">提示</h4>
+            </div>
+            <div class="modal-body" style="font-size: 20px">
+<!--                 <span class="ygsuccess">操作成功!</span>
+-->                <span class="ygfail"></span>
+</div>
+<div class="modal-footer">
+    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+    <button type="button" class="btn btn-info" data-dismiss="modal">确定</button>
+</div>
+<input type="hidden" class="hiddenid" value="{$list['id']}" name="">
+</div>
+</div>
+</div>
+<!--  -->
+<script type="text/javascript">
+    $(function(){
+        $("#nav5").addClass("in");
+        // $(".yajininp").click(function(){
+        //     var yajininp = $(".yajininp").val();
+        //     var yjspan = Math.floor($(".yjspan").text());
+        //     if(yajininp<1){
+        //         $(".yajininp").val(1);
+        //     }else if(yajininp>yjspan){
+        //         alert("输入金额大于押金金额！！")
+        //         $(".yajininp").val(yjspan);                
+        //     }
+        // })
+        // $(".yajininp").blur(function(){
+        //     var yajininp = $(".yajininp").val();
+        //     var yjspan = Math.floor($(".yjspan").text());
+        //     if(yajininp<1){
+        //         $(".yajininp").val(1);
+        //     }else if(yajininp>yjspan){
+        //         alert("输入金额大于押金金额！！")
+        //         $(".yajininp").val(yjspan);
+        //     }
+        // })
+        
+
+
+        $(".confirmbtn").click(function(){
+            var id = $(".hiddenid").val();
+            var money = $(".yajininp").val();
+            console.log("id为："+id+"金额为："+money);
+            $.ajax({
+                type:"post",
+                url:"{$_W['siteroot']}/app/index.php?i={$_W['uniacid']}&c=entry&do=YjRefund&m=zh_jdgjb",
+                dataType:"text",
+                data:{id:id,money:money},
+                success:function(data){
+                    console.log(data);      
+                        // location.reload();
+                        if(data==1){
+                            // $(".ygsuccess").show();
+                            // // $(".ygfail").hide();
+                            $(".ygfail").html("操作成功!");
+                            setTimeout(function(){
+                                location.reload();
+                            },1000)
+                        }else if(data==2){
+                            // $(".ygsuccess").hide();
+                            // // $(".ygfail").show();
+                            $(".ygfail").html("操作失败!");
+
+                        }
+                    }
+                })
+        })
+        
+        
+    })
+</script>
+<script type="text/javascript">
+    $(function(){
+        $("#frame-18").show();
+        $("#yframe-18").addClass("wyactive");
+    })
+</script>
+{template 'common/footer'}

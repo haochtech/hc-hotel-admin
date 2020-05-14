@@ -1,0 +1,126 @@
+{template 'public/header'}
+{template 'public/comhead'}
+<link rel="stylesheet" type="text/css" href="../addons/zh_jdgjb/template/public/ygcss.css">
+<style type="text/css">
+    input[type="radio"] + label::before {
+        content: "\a0"; /*不换行空格*/
+        display: inline-block;
+        vertical-align: middle;
+        font-size: 16px;
+        width: 1em;
+        height: 1em;
+        margin-right: .4em;
+        border-radius: 50%;
+        border: 2px solid #ddd;
+        text-indent: .15em;
+        line-height: 1; 
+    }
+    input[type="radio"]:checked + label::before {
+        background-color: #44ABF7;
+        background-clip: content-box;
+        padding: .1em;
+        border: 2px solid #44ABF7;
+    }
+    input[type="radio"] {
+        position: absolute;
+        clip: rect(0, 0, 0, 0);
+    }
+</style>
+<ul class="nav nav-tabs">    
+    <span class="ygxian"></span>
+    <div class="ygdangq">当前位置:</div>
+    <li class="active"><a href="javascript:void(0);">模板消息</a></li>
+</ul>
+
+<div class="main">
+    <form action="" method="post" class="form-horizontal form" enctype="multipart/form-data" id="invitative">
+        <div class="panel panel-default ygdefault">
+            <div class="panel-heading wyheader">
+                系统设置&nbsp;>&nbsp;模板消息设置&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<button type="button" class="btn ygyouhui2 btn-xs" data-toggle="modal" data-target="#myModal">一键生成模板消息</button>
+            </div>
+            <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel" style="font-size: 20px;">提示</h4>
+                        </div>
+                        <div class="modal-body" style="font-size: 20px">
+                           点击生成后，微信小程序后台会自动生成对应模板，必须保证微信小程序后台模板数量有剩余,如已存在该模板，请不要重复点击!!!
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <a href="{php echo $this->createWebUrl('news', array('op' => 'generate'))}" type="button" class="btn btn-info" >确定</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="panel-body">
+        <!--     <div class="form-group">
+                <label for="lastname" class="col-sm-2 control-label">是否开启短信</label>
+                <div class="col-sm-10">
+                     <label class="radio-inline">
+                        <input type="radio" id="emailwy1" name="is_open" value="1" {if $item['is_open']==1 || empty($item['is_open'])}checked{/if} />
+                        <label for="emailwy1">开启</label>
+                    </label>
+                    <label class="radio-inline">
+                        <input type="radio" id="emailwy2" name="is_open" value="2" {if $item['is_open']==2}checked{/if} />
+                        <label for="emailwy2">关闭</label>
+                    </label>
+                </div>
+            </div> -->
+            <div class="form-group">
+                <label for="inputEmail3" class="col-sm-2 control-label">酒店预定成功通知</label>
+                <div class="col-sm-10">
+                   <input type="text"  name="tid1" value="{$item['tid1']}" class="form-control" id="inputEmail3" placeholder="请填写模板id">
+                   <span class="help-block">*模板编号AT0011 ,关键词(酒店名称,订单号,订单金额,入离时间,入住人)</span>
+               </div>
+           </div>
+           <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">办理入住登记通知</label>
+            <div class="col-sm-10">
+                <input type="text"  name="rz_tid" value="{$item['rz_tid']}" class="form-control" id="inputEmail3" placeholder="请填写模板id">
+                <span class="help-block">*模板编号AT0390 ,关键词(入住酒店,入住人,入住时间,温馨提示)</span>
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">酒店预订结果通知</label>
+            <div class="col-sm-10">
+                <input type="text"  name="jjrz_tid" value="{$item['jjrz_tid']}" class="form-control" id="inputEmail3" placeholder="请填写模板id">
+                <span class="help-block">*模板编号AT0375 ,关键词(预订结果,酒店名称,订单号,酒店电话,温馨提示)</span>
+            </div>
+        </div> 
+        {if $item['is_order']==1}
+        <div class="form-group">
+            <label for="inputEmail3" class="col-sm-2 control-label">确认订单通知</label>
+            <div class="col-sm-10">
+                <input type="text"  name="tid3" value="{$item['tid3']}" class="form-control" id="inputEmail3" placeholder="请填写模板id">
+                <span class="help-block">*模板编号AT0163 ,关键词(订单号,商户名称,订单状态,入住时间,退房时间)</span>
+            </div>
+        </div>   
+        <div class="form-group">
+        <label for="inputEmail3" class="col-sm-2 control-label">拒绝订单通知</label>
+            <div class="col-sm-10">
+                <input type="text"  name="tid4" value="{$item['tid4']}" class="form-control" id="inputEmail3" placeholder="请填写模板id">
+                <span class="help-block">*模板编号AT0012 ,关键词(失败原因,订单号,入住日期,入住人,酒店名称,地点,酒店电话)</span>
+            </div>
+        </div>   
+        {/if}     
+    </div>
+</div>
+
+<div class="form-group">
+    <input type="submit" name="submit" value="保存设置" class="btn col-lg-3" style="color: white;background-color: #44ABF7;" />
+    <input type="hidden" name="token" value="{$_W['token']}" />
+    <input type="hidden" name="id" value="{$item['id']}" />
+</div>
+</form>
+</div>
+<script type="text/javascript">
+    $(function(){
+        $("#frame-5").show();
+        $("#yframe-5").addClass("wyactive");
+    })
+</script>
+{template 'common/footer'}

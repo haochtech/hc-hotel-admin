@@ -1,0 +1,106 @@
+{template 'public/header'}
+{template 'public/comhead'}
+<link rel="stylesheet" type="text/css" href="../addons/zh_jdgjb/template/public/ygcsslist.css">
+<ul class="nav nav-tabs">
+    <span class="ygxian"></span>
+    <div class="ygdangq">当前位置:</div>    
+    <li class="active"><a href="{php echo $this->createWebUrl('city')}">城市管理</a></li>
+    <li><a href="{php echo $this->createWebUrl('addcity')}">添加城市</a></li>
+</ul>
+ <div class="row ygrow">
+      <div class="col-lg-12">
+          <form action="" method="get" class="col-md-4">
+          <input type="hidden" name="c" value="site" />
+            <input type="hidden" name="a" value="entry" />
+            <input type="hidden" name="m" value="zh_gjhdbm" />
+            <input type="hidden" name="do" value="city" />
+              <div class="input-group" style="width: 350px">
+                  <input type="text" name="keywords" class="form-control" placeholder="请输入城市名称">
+                  <span class="input-group-btn">
+                     <input type="submit" class="btn btn-default" name="submit" value="查找"/>
+                  </span>
+              </div>
+              <input type="hidden" name="token" value="{$_W['token']}"/>
+          </form>  
+      </div>    
+  </div>
+<div class="main">
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            城市管理
+        </div>
+        <div class="panel-body" style="padding: 0px 15px;">
+            <div class="row">
+                <table class="yg5_tabel col-md-12">
+                    <tr class="yg5_tr1">
+                      <th class="col-md-2">排序</th>
+                        <th class=" store_td1 col-md-2">城市名称</th>
+                     <!--    <th class="col-md-2">链接地址</th> -->
+                        <th class="col-md-2">创建时间</th>
+                        
+                        <th class="col-md-2">操作</th>
+                    </tr>
+                    {loop $list $row}
+                    <tr class="yg5_tr2">
+                        <!-- <td><div class="type-parent">{$row['orderby']}&nbsp;&nbsp;</div></td> -->
+                        <tr class="yg5_tr2">
+                        <td>{$row['sort']}</td> 
+                        <td><div class="type-parent">{$row['cityname']}</div></td>
+                        <td>{php echo date("Y-m-d H:i:s",$row['time']);}</td> 
+                         
+                        <td>
+                            <a href="{php echo $this->createWebUrl('addcity', array('id' => $row['id']))}" class="storespan btn btn-xs">
+                                <span class="fa fa-pencil"></span>
+                                <span class="bianji">编辑
+                                    <span class="arrowdown"></span>
+                                </span>                            
+                            </a>
+                            <a href="javascript:void(0);" class="storespan btn btn-xs" data-toggle="modal" data-target="#myModal{$row['id']}">
+                                <span class="fa fa-trash-o"></span>
+                                <span class="bianji">删除
+                                    <span class="arrowdown"></span>
+                                </span>
+                            </a>
+                            <!-- <a class="btn btn-warning btn-xs" href="{php echo $this->createWebUrl('addad', array('id' => $row['id']))}" title="编辑">改</a>&nbsp;&nbsp;<button type="button" class="btn btn-danger btn-xs" data-toggle="modal" data-target="#myModal{$row['id']}">删</button> -->
+                        </td>
+                    </tr>
+                    <div class="modal fade" id="myModal{$row['id']}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+                      <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                          <div class="modal-header">
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                            <h4 class="modal-title" id="myModalLabel" style="font-size: 20px;">提示</h4>
+                        </div>
+                        <div class="modal-body" style="font-size: 20px">
+                            确定删除么？
+                        </div>
+                        <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                            <a href="{php echo $this->createWebUrl('city', array('op' => 'delete', 'id' => $row['id']))}" type="button" class="btn btn-info" >确定</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+           
+                </div>
+            </div>
+                    {/loop}
+                     
+
+            
+                </table>
+            </div>
+        </form>
+    </div>
+
+</div>
+<div class="text-right we7-margin-top">
+   {$pager}
+</div>
+<script type="text/javascript">
+    $(function(){
+        $("#frame-1").show();
+        $("#yframe-1").addClass("wyactive");
+    })
+</script>
+{template 'common/footer'}
